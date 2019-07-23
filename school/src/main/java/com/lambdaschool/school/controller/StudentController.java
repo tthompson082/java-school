@@ -1,7 +1,9 @@
 package com.lambdaschool.school.controller;
 
+import com.lambdaschool.school.model.ErrorDetail;
 import com.lambdaschool.school.model.Student;
 import com.lambdaschool.school.service.StudentService;
+import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,8 @@ public class StudentController
 
     // Please note there is no way to add students to course yet!
 
+    @ApiOperation(value = "Returns all Students", responseContainer = "List")
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Students Found", responseContainer = "List", response = Student.class), @ApiResponse(code = 500, message = "Error retrieving Students", response = ErrorDetail.class)})
     @GetMapping(value = "/students", produces = {"application/json"})
     public ResponseEntity<?> listAllStudents(HttpServletRequest request)
     {
@@ -37,9 +41,12 @@ public class StudentController
         return new ResponseEntity<>(myStudents, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Returns Student by ID", response = Student.class)
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Student Retrieved", response = void.class), @ApiResponse(code = 404, message = "Student not found", response = ErrorDetail.class)})
     @GetMapping(value = "/Student/{StudentId}",
                 produces = {"application/json"})
     public ResponseEntity<?> getStudentById(
+            @ApiParam(value = "Student ID", required = true, example = "1")
             @PathVariable
                     Long StudentId, HttpServletRequest request)
     {
@@ -49,9 +56,12 @@ public class StudentController
     }
 
 
+    @ApiOperation(value = "Returns Student by Name", response = Student.class)
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Student Retrieved", response = void.class), @ApiResponse(code = 404, message = "Student not found", response = ErrorDetail.class)})
     @GetMapping(value = "/student/namelike/{name}",
                 produces = {"application/json"})
     public ResponseEntity<?> getStudentByNameContaining(
+            @ApiParam(value = "Student Name", required = true, example = "John")
             @PathVariable String name, HttpServletRequest request)
     {
         logger.info("GET " + request.getRequestURI() + " accessed");
@@ -60,6 +70,8 @@ public class StudentController
     }
 
 
+    @ApiOperation(value = "Add a new Student", response = void.class)
+    @ApiResponses(value = {@ApiResponse(code = 201, message = "Student Created", response = void.class), @ApiResponse(code = 500, message = "Error creating new Student", response = ErrorDetail.class)})
     @PostMapping(value = "/Student",
                  consumes = {"application/json"},
                  produces = {"application/json"})
@@ -79,8 +91,11 @@ public class StudentController
     }
 
 
+    @ApiOperation(value = "Update a Student", response = void.class)
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Student Updated", response = void.class), @ApiResponse(code = 500, message = "Error Updating Student", response = ErrorDetail.class)})
     @PutMapping(value = "/Student/{Studentid}")
     public ResponseEntity<?> updateStudent(
+            @ApiParam(value = "Student ID", required = true, example = "1")
             @RequestBody
                     Student updateStudent,
             @PathVariable
@@ -92,8 +107,11 @@ public class StudentController
     }
 
 
+    @ApiOperation(value = "Delete a Student", response = void.class)
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Student Deleted", response = void.class), @ApiResponse(code = 500, message = "Error Deleting Student", response = ErrorDetail.class)})
     @DeleteMapping("/Student/{Studentid}")
     public ResponseEntity<?> deleteStudentById(
+            @ApiParam(value = "Student ID", required = true, example = "1")
             @PathVariable
                     long Studentid, HttpServletRequest request)
     {
