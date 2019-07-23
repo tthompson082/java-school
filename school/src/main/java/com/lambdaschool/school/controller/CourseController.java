@@ -28,6 +28,7 @@ public class CourseController
 
     @ApiOperation(value = "Returns all Courses", responseContainer = "List")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Courses Found", responseContainer = "List", response = Course.class), @ApiResponse(code = 500, message = "Error retrieving Courses", response = ErrorDetail.class)})
+    @ApiImplicitParams({@ApiImplicitParam(name = "page", dataType = "integer", paramType = "query", value = "Results page you want to retrieve (0..N)"), @ApiImplicitParam(name = "size", dataType = "integer", paramType = "query", value = "Number of records per page."), @ApiImplicitParam(name = "sort", allowMultiple = true, dataType = "string", paramType = "query", value = "Sorting criteria in the format: property(,asc|desc). " + "Default sort order is ascending. " + "Multiple sort criteria are supported.")})
     @GetMapping(value = "/courses", produces = {"application/json"})
     public ResponseEntity<?> listAllCourses(@PageableDefault(page = 0, size = 3) Pageable pageable, HttpServletRequest request)
     {
