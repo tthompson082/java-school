@@ -7,6 +7,8 @@ import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,11 +35,11 @@ public class StudentController
     @ApiOperation(value = "Returns all Students", responseContainer = "List")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Students Found", responseContainer = "List", response = Student.class), @ApiResponse(code = 500, message = "Error retrieving Students", response = ErrorDetail.class)})
     @GetMapping(value = "/students", produces = {"application/json"})
-    public ResponseEntity<?> listAllStudents(HttpServletRequest request)
+    public ResponseEntity<?> listAllStudents(@PageableDefault(page = 0, size = 3) Pageable pageable, HttpServletRequest request)
     {
         logger.info("GET " + request.getRequestURI() + " accessed");
 
-        List<Student> myStudents = studentService.findAll();
+        List<Student> myStudents = studentService.findAll(pageable);
         return new ResponseEntity<>(myStudents, HttpStatus.OK);
     }
 
