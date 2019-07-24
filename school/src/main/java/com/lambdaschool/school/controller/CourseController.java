@@ -37,6 +37,13 @@ public class CourseController
         return new ResponseEntity<>(myCourses, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/allcourses", produces = {"application/json"})
+    public ResponseEntity<?> reallyListAllCourses()
+    {
+        ArrayList<Course> allCourses = courseService.reallyFindAll();
+        return new ResponseEntity<>(allCourses, HttpStatus.OK);
+    }
+
     @ApiOperation(value = "Return Students per Course", responseContainer = "ArrayList")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Student Count Found", responseContainer = "List", response = Course.class), @ApiResponse(code = 500, message = "Error retrieving Student Count", response = ErrorDetail.class)})
     @GetMapping(value = "/studcount", produces = {"application/json"})
