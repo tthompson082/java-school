@@ -1,6 +1,7 @@
 package com.lambdaschool.school.service;
 
 import com.lambdaschool.school.SchoolApplication;
+import com.lambdaschool.school.exceptions.ResourceNotFoundException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -11,6 +12,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.persistence.EntityNotFoundException;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
@@ -40,4 +43,12 @@ public class CourseServiceImplTest
     {
         assertEquals("Data Science", courseService.findCourseById(1).getCoursename());
     }
+
+    @Test (expected = ResourceNotFoundException.class)
+    public void DdeleteNotFound()
+    {
+        courseService.delete(150);
+        assertEquals(5, courseService.reallyFindAll().size());
+    }
+
 }
