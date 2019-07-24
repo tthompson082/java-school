@@ -51,4 +51,11 @@ public class CourseServiceImplTest
         assertEquals(5, courseService.reallyFindAll().size());
     }
 
+    @Test
+    public void EdeleteFound()
+    {
+        courseService.delete(1);
+        assertEquals(5, courseService.reallyFindAll().size());
+    }
+
 }
