@@ -10,11 +10,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.URI;
 import java.util.ArrayList;
 
 @RestController
@@ -63,5 +66,12 @@ public class CourseController
         logger.info("DELETE " + request.getRequestURI() + " accessed");
         courseService.delete(courseid);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/course/add", consumes = {"application/json"}, produces = {"application/json"})
+    public ResponseEntity<?> addNewCourse(@RequestBody Course newCourse)
+    {
+        newCourse = courseService.save(newCourse);
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 }
