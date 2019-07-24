@@ -3,6 +3,8 @@ package com.lambdaschool.school.service;
 import com.lambdaschool.school.SchoolApplication;
 import com.lambdaschool.school.exceptions.ResourceNotFoundException;
 import com.lambdaschool.school.model.Course;
+import com.lambdaschool.school.model.Instructor;
+import com.lambdaschool.school.repository.InstructorRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -26,6 +28,9 @@ public class CourseServiceImplTest
 {
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private InstructorRepository instructorRepository;
 
     @Before
     public void AsetUp() throws Exception
@@ -62,7 +67,7 @@ public class CourseServiceImplTest
     @Test
     public void Fsave()
     {
-        Course c1 = new Course("Fun with Java");
+        Course c1 = new Course("Fun with Java", instructorRepository.findById(2L).orElseThrow(() -> new EntityNotFoundException(Long.toString(2L))));
 
         Course addCourse = courseService.save(c1);
 
