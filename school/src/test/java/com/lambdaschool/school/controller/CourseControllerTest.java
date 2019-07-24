@@ -140,4 +140,23 @@ public class CourseControllerTest
 
         assertEquals("Rest API Returns List", er, tr);
     }
+
+    @Test
+    public void addNewCourse() throws Exception
+    {
+        String apiUrl = "/courses/course/add";
+
+        Course newCourse = new Course("Fun with Java", courseList.get(1).getInstructor());
+        newCourse.setCourseid(100);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String courseString = mapper.writeValueAsString(newCourse);
+
+        Mockito.when(courseService.save(any(Course.class))).thenReturn(newCourse);
+
+        RequestBuilder rb = MockMvcRequestBuilders.post(apiUrl)
+                .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+                .content(courseString);
+        mockMvc.perform(rb).andExpect(status().isCreated()).andDo(MockMvcResultHandlers.print());
+    }
 }

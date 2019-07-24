@@ -72,6 +72,6 @@ public class CourseController
     public ResponseEntity<?> addNewCourse(@RequestBody Course newCourse)
     {
         newCourse = courseService.save(newCourse);
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
 }
