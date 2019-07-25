@@ -1,0 +1,28 @@
+tylerthompson@Tylers-MacBook-Pro:~|⇒  curl -X GET -H "Accept: application/json" http://tthompson082-school.herokuapp.com/students/students
+[{"studid":1,"studname":"John","courses":[{"courseid":1,"coursename":"Data Science","instructor":{"instructid":1,"instructname":"Sally"}},{"courseid":4,"coursename":"Java Back End","instructor":{"instructid":2,"instructname":"Lucy"}}]},{"studid":2,"studname":"Julian","courses":[{"courseid":2,"coursename":"JavaScript","instructor":{"instructid":1,"instructname":"Sally"}}]},{"studid":3,"studname":"Mary","courses":[{"courseid":1,"coursename":"Data Science","instructor":{"instructid":1,"instructname":"Sally"}},{"courseid":3,"coursename":"Node.js","instructor":{"instructid":1,"instructname":"Sally"}},{"courseid":6,"coursename":"Mobile Android","instructor":{"instructid":3,"instructname":"Charlie"}}]}]%
+
+tylerthompson@Tylers-MacBook-Pro:~|⇒  curl -X GET -H "Accept: application/json" http://tthompson082-school.herokuapp.com/students/Student/1
+{"studid":1,"studname":"John","courses":[{"courseid":1,"coursename":"Data Science","instructor":{"instructid":1,"instructname":"Sally"}},{"courseid":4,"coursename":"Java Back End","instructor":{"instructid":2,"instructname":"Lucy"}}]}%
+
+tylerthompson@Tylers-MacBook-Pro:~|⇒  curl -X GET -H "Accept: application/json" http://tthompson082-school.herokuapp.com/students/student/namelike/John
+[{"studid":1,"studname":"John","courses":[{"courseid":1,"coursename":"Data Science","instructor":{"instructid":1,"instructname":"Sally"}},{"courseid":4,"coursename":"Java Back End","instructor":{"instructid":2,"instructname":"Lucy"}}]}]%
+
+tylerthompson@Tylers-MacBook-Pro:~|⇒  curl -X POST -H "Content-type: application/json" -d "{\"studname\": \"Bob\"}" http://tthompson082-school.herokuapp.com/students/Student
+
+tylerthompson@Tylers-MacBook-Pro:~|⇒  curl -X PUT -H "Accept: application/json" "{\"studname\": \"Ginger\"}" http://tthompson082-school.herokuapp.com/students/Student/1
+
+tylerthompson@Tylers-MacBook-Pro:~|⇒  curl -X DELETE http://tthompson082-school.herokuapp.com/students/Student/1
+
+tylerthompson@Tylers-MacBook-Pro:~|⇒  curl -X GET -H "Accept: application/json" http://tthompson082-school.herokuapp.com/courses/courses
+[{"courseid":1,"coursename":"Data Science","instructor":{"instructid":1,"instructname":"Sally"},"students":[{"studid":3,"studname":"Mary"}]},{"courseid":2,"coursename":"JavaScript","instructor":{"instructid":1,"instructname":"Sally"},"students":[{"studid":2,"studname":"Julian"}]},{"courseid":3,"coursename":"Node.js","instructor":{"instructid":1,"instructname":"Sally"},"students":[{"studid":3,"studname":"Mary"}]}]%
+
+tylerthompson@Tylers-MacBook-Pro:~|⇒  curl -X GET -H "Accept: application/json" http://tthompson082-school.herokuapp.com/courses/allcourses
+[{"courseid":1,"coursename":"Data Science","instructor":{"instructid":1,"instructname":"Sally"},"students":[{"studid":3,"studname":"Mary"}]},{"courseid":2,"coursename":"JavaScript","instructor":{"instructid":1,"instructname":"Sally"},"students":[{"studid":2,"studname":"Julian"}]},{"courseid":3,"coursename":"Node.js","instructor":{"instructid":1,"instructname":"Sally"},"students":[{"studid":3,"studname":"Mary"}]},{"courseid":4,"coursename":"Java Back End","instructor":{"instructid":2,"instructname":"Lucy"},"students":[]},{"courseid":5,"coursename":"Mobile IOS","instructor":{"instructid":2,"instructname":"Lucy"},"students":[]},{"courseid":6,"coursename":"Mobile Android","instructor":{"instructid":3,"instructname":"Charlie"},"students":[{"studid":3,"studname":"Mary"}]}]%
+
+tylerthompson@Tylers-MacBook-Pro:~|⇒  curl -X GET -H "Accept: application/json" http://tthompson082-school.herokuapp.com/courses/studcount
+[{"courseID":3,"courseName":"Node.js","countStudents":1},{"courseID":2,"courseName":"JavaScript","countStudents":1},{"courseID":6,"courseName":"Mobile Android","countStudents":1},{"courseID":1,"courseName":"Data Science","countStudents":1}]%
+
+tylerthompson@Tylers-MacBook-Pro:~|⇒  curl -X DELETE http://tthompson082-school.herokuapp.com/courses/courses/1
+
+tylerthompson@Tylers-MacBook-Pro:~|⇒  curl -X POST -H "Content-type: application/json" -d "{\"name\": \"Java\"}" http://tthompson082-school.herokuapp.com/courses/course/add
+
